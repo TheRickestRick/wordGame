@@ -29,11 +29,8 @@
                   <div>
                     <p>Player One</p>
                     <p>Score: 0</p>
-                    <input type="text" name="Word" value="">
-                  <ul>
-                    <li>Word</li>
-                    <li>Word</li>
-                    <li>Word</li>
+                    <input id='word_input' type="text" name="Word" value="">
+                  <ul id='p1_wordList'>
                     <li>Word</li>
                   </ul>
                   </div>
@@ -45,13 +42,9 @@
                     <input type="text" name="Word" value="">
                   <ul>
                     <li>Word</li>
-                    <li>Word</li>
-                    <li>Word</li>
-                    <li>Word</li>
                   </ul>
                   </div>
               </div>
-
 
             <table class="uk-table">
                 <caption>Letters</caption>
@@ -65,15 +58,15 @@
                 </thead>
                 <tfoot>
                     <tr>
-                        <td>A</td>
-                        <td>O</td>
-                        <td>T</td>
-                        <td>R</td>
-                        <td>P</td>
-                        <td>I</td>
-                        <td>L</td>
-                        <td>L</td>
-                        <td>U</td>
+                        <td class="vowel"></td>
+                        <td class="vowel"></td>
+                        <td class="consonant"></td>
+                        <td class="consonant"></td>
+                        <td class="letter"></td>
+                        <td class="letter"></td>
+                        <td class="letter"></td>
+                        <td class="letter"></td>
+                        <td class="letter"></td>
                     </tr>
                 </tfoot>
             </table>
@@ -83,4 +76,7 @@
 
 
     </body>
+
+    <script type="text/javascript" src="app.js"></script>
+
 </html>
