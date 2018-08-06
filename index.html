@@ -1,37 +1,96 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" class="uk-height-1-1 uk-notouch">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <!-- UIkit CSS -->
-    <link rel="stylesheet" href="index.css" />
-    <!-- UIkit JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/js/uikit.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/js/uikit-icons.min.js"></script>
+<html lang="en-gb" dir="ltr">
 
-  </head>
-    <body class="uk-height-1-1">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Portfolio layout example - UIkit documentation</title>
+        <!-- UIkit CSS -->
+        <link rel="stylesheet" href="index.css" />
+        <!-- UIkit JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/js/uikit.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/js/uikit-icons.min.js"></script>
 
-          <div id="gameBoard" class="uk-vertical-align uk-text-center uk-height-1-1">
-              <div id="createGame" class="uk-vertical-align-middle" style="width: 250px;">
-                  <form class="uk-panel uk-panel-box uk-form">
-                    <p>Create New Game</p>
-                      <div class="uk-form-row">
-                          <input id="player1_Name" class="uk-width-1-1 uk-form-large" type="text" placeholder="Player 1 Name">
-                      </div>
-                      <div class="uk-form-row">
-                          <input id="player2_Name" class="uk-width-1-1 uk-form-large" type="text" placeholder="Player 2 Name">
-                      </div>
-                      <div class="uk-form-row">
-                          <a id="startGame" class="uk-width-1-1 uk-button uk-button-primary uk-button-large" href="#">Start Game</a>
-                      </div>
-                  </form>
+    </head>
 
+    <body>
+
+        <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
+
+            <nav class="uk-navbar uk-margin-large-bottom">
+
+                <a href="#offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
+                <div class="uk-navbar-brand uk-navbar-center uk-visible-small">Brand</div>
+            </nav>
+
+
+
+              <div class=" uk-align-left uk-overlay uk-overlay-default">
+                  <div>
+                    <p>Player One</p>
+                    <div class="uk-flex">
+                      <div class="">
+                        <p>Score:</p>
+                      </div>
+                      <div class="">
+                        <p id="p1_Score">0</p>
+                      </div>
+                    </div>
+                    <input id='player1_word_input' type="text" name="Word" value="">
+                  <ul id='p1_wordList'>
+
+                  </ul>
+                  </div>
               </div>
-          </div>
+              <div class=" uk-align-right uk-overlay uk-overlay-default">
+                  <div>
+                    <p>Player Two</p>
+                    <div class="uk-flex">
+                      <div class="">
+                        <p>Score:</p>
+                      </div>
+                      <div class="">
+                        <p id='p2_Score'>0</p>
+                      </div>
+                    </div>
+                    <input id='player2_word_input' type="text" name="Word" value="">
+                  <ul id='p2_wordList'>
+
+                  </ul>
+                  </div>
+              </div>
+
+            <table class="uk-table">
+                <caption>Letters</caption>
+                <thead>
+                    <tr>
+                        <!-- <th>Vowel</th>
+                        <th>Vowel</th>
+                        <th>Consonants</th>
+                        <th>Consonants</th> -->
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td class="vowel"></td>
+                        <td class="vowel"></td>
+                        <td class="consonant"></td>
+                        <td class="consonant"></td>
+                        <td class="letter"></td>
+                        <td class="letter"></td>
+                        <td class="letter"></td>
+                        <td class="letter"></td>
+                        <td class="letter"></td>
+                    </tr>
+                </tfoot>
+            </table>
+
+
+        </div>
+
 
     </body>
-    <!--JavaScript_Tag-->
-    <script type="text/javascript" src="script.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script>
+    <script type="text/javascript" src="app.js"></script>
 
 </html>
