@@ -1,3 +1,14 @@
+// Initialize Firebase
+var config = {
+  apiKey: "AIzaSyDYfz147ptuA52ZGI5eo7M4fZu1sxDORBk",
+  authDomain: "wordgame-15bbf.firebaseapp.com",
+  databaseURL: "https://wordgame-15bbf.firebaseio.com",
+  projectId: "wordgame-15bbf",
+  storageBucket: "",
+  messagingSenderId: "86330825043"
+};
+firebase.initializeApp(config);
+
 const consonant = document.getElementsByClassName('consonant');
 const vowel = document.getElementsByClassName('vowel');
 const letter = document.getElementsByClassName('letter');
@@ -96,8 +107,14 @@ getLetters();
 
 const gameLetters = document.querySelectorAll("td");
 const gameLettersArray = [];
-const player_one_Word = document.getElementById('word_input');
-const p1_wordList = document.getElementById('p1_wordList')
+const player_one_Word = document.getElementById('player1_word_input');
+const p1_wordList = document.getElementById('p1_wordList');
+const p1_wordArray = [];
+const p1_Score = document.getElementById('p1_Score');
+const player_two_Word = document.getElementById('player2_word_input');
+const p2_wordList = document.getElementById('p2_wordList');
+const p2_wordArray = [];
+const p2_Score = document.getElementById('p2_Score');
 
 for(let count = 0; count < gameLetters.length; count++){
   gameLettersArray.push(gameLetters[count].innerText);
@@ -105,32 +122,85 @@ for(let count = 0; count < gameLetters.length; count++){
 
 player_one_Word.onkeydown = function(event) {
     if (event.keyCode == 13) {
-      validateWord(player_one_Word.value)
-      let newWord = document.createElement('li')
-      newWord.innerText = player_one_Word.value
-      p1_wordList.appendChild(newWord)
+      let wordValidated = validateWord(player_one_Word.value);
+      let wordNotUsedAlready = whoSaidItFirst(player_one_Word.value)
+      // console.log(wordValidated);
+      if(wordValidated && wordNotUsedAlready){
+        let newWord = document.createElement('li')
+        newWord.innerText = player_one_Word.value
+        p1_wordList.appendChild(newWord)
+        p1_wordArray.push(player_one_Word.value);
+        player_one_Word.value = '';
+        raiseScore(p1_Score);
+      }else{
+        console.log('Invalid Word');
+        player_one_Word.value = '';
+      }
+    }
+}
 
+player_two_Word.onkeydown = function(event) {
+    if (event.keyCode == 13) {
+      let wordValidated = validateWord(player_two_Word.value);
+      let wordNotUsedAlready = whoSaidItFirst(player_two_Word.value)
+      // console.log(wordValidated);
+      if(wordValidated && wordNotUsedAlready){
+        let newWord = document.createElement('li')
+        newWord.innerText = player_two_Word.value
+        p2_wordList.appendChild(newWord)
+        p2_wordArray.push(player_two_Word.value);
+        player_two_Word.value = '';
+        raiseScore(p2_Score);
+      }else{
+        console.log('Invalid Word');
+        player_two_Word.value = '';
+      }
     }
 }
 
 function validateWord(word){
   let wordArr = word.split('')
   let wordObj = {};
+
   for(let y = 0; y < gameLettersArray.length; y++){
     if(wordObj.hasOwnProperty(gameLettersArray[y])){
       wordObj[gameLettersArray[y]]++
     }else{
       wordObj[gameLettersArray[y]] = 1;
-      console.log(gameLettersArray[y]);
     }
   }
 
+  // console.log(wordArr);
   for(let x = 0; x < wordArr.length; x++){
-    // console.log(wordArr[x]);
+    if(wordObj.hasOwnProperty(wordArr[x])){
+      if(wordObj[wordArr[x]] <= 0){
+        return false;
+      }else{
+        wordObj[wordArr[x]]--
+      }
+    }else{
+      return false;
+    }
+    // console.log(wordObj);
   }
-
-  console.log(wordObj);
-
+  return true;
 }
 
-// console.log(gameLettersArray);
+function whoSaidItFirst(word){
+  console.log(word)
+  console.log(p2_wordArray);
+  console.log(p1_wordArray);
+  if (p2_wordArray.indexOf(word) > -1 || p1_wordArray.indexOf(word) > -1) {
+    return false;
+    //In the array!
+  } else {
+    return true;
+      //Not in the array
+  }
+}
+
+function raiseScore(playerScore){
+  let score = parseInt(playerScore.innerHTML)
+  score++
+  playerScore.innerHTML = score;
+}
