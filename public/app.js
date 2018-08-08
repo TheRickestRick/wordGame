@@ -54,16 +54,6 @@ database.ref('games').on('value', function(snapshot) {
       gameTime = snapshot.val().gameTime
       timer.innerHTML = gameTime;
 
-      for(let x =1; x < p1_wordArray.length; x++){
-        let p1_Word = document.createElement('li')
-        p1_Word.innerText = p1_wordArray[x]
-        p1_wordList.appendChild(p1_Word)
-      }
-      for(let y = 1; y < p2_wordArray.length; y++){
-        let p2_Word = document.createElement('li')
-        p2_Word.innerText = p2_wordArray[y]
-        p2_wordList.appendChild(p2_Word)
-      }
 
 
       theTime()
