@@ -11,6 +11,15 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/js/uikit.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/js/uikit-icons.min.js"></script>
 
+        <!-- update the version number as needed -->
+        <script defer src="/__/firebase/5.3.1/firebase-app.js"></script>
+        <!-- include only the Firebase features as you need -->
+        <script defer src="/__/firebase/5.3.1/firebase-auth.js"></script>
+        <script defer src="/__/firebase/5.3.1/firebase-database.js"></script>
+        <script defer src="/__/firebase/5.3.1/firebase-messaging.js"></script>
+        <script defer src="/__/firebase/5.3.1/firebase-storage.js"></script>
+        <!-- initialize the SDK after all desired features are loaded -->
+        <script defer src="/__/firebase/init.js"></script>
     </head>
 
     <body>
@@ -23,42 +32,10 @@
                 <div class="uk-navbar-brand uk-navbar-center uk-visible-small">Brand</div>
             </nav>
 
-
-
-              <div class=" uk-align-left uk-overlay uk-overlay-default">
-                  <div>
-                    <p>Player One</p>
-                    <div class="uk-flex">
-                      <div class="">
-                        <p>Score:</p>
-                      </div>
-                      <div class="">
-                        <p id="p1_Score">0</p>
-                      </div>
-                    </div>
-                    <input id='player1_word_input' type="text" name="Word" value="">
-                  <ul id='p1_wordList'>
-
-                  </ul>
-                  </div>
-              </div>
-              <div class=" uk-align-right uk-overlay uk-overlay-default">
-                  <div>
-                    <p>Player Two</p>
-                    <div class="uk-flex">
-                      <div class="">
-                        <p>Score:</p>
-                      </div>
-                      <div class="">
-                        <p id='p2_Score'>0</p>
-                      </div>
-                    </div>
-                    <input id='player2_word_input' type="text" name="Word" value="">
-                  <ul id='p2_wordList'>
-
-                  </ul>
-                  </div>
-              </div>
+            <div class="uk-flex">
+            <input type="button" name="button" value="New Game" onclick="startNewGame()"/>
+            <div id="mycounter"></div>
+          </div>
 
             <table class="uk-table">
                 <caption>Letters</caption>
@@ -84,6 +61,47 @@
                     </tr>
                 </tfoot>
             </table>
+
+
+
+              <div class="uk-align-left uk-overlay uk-overlay-default">
+                  <div>
+                    <p>Player One</p>
+                    <div class="uk-flex">
+                      <div class="">
+                        <p>Score:</p>
+                      </div>
+                      <div class="">
+                        <p id="p1_Score">0</p>
+                      </div>
+                    </div>
+                    <input id='player1_word_input' type="text" name="Word" value="">
+                  <ul id='p1_wordList'>
+
+                  </ul>
+                  </div>
+              </div>
+              <div class="uk-align-right uk-overlay uk-overlay-default">
+                  <div>
+                    <p>Player Two</p>
+                    <div class="uk-flex">
+                      <div class="">
+                        <p>Score:</p>
+                      </div>
+                      <div class="">
+                        <p id='p2_Score'>0</p>
+                      </div>
+                    </div>
+                    <input id='player2_word_input' type="text" name="Word" value="">
+                  <ul id='p2_wordList'>
+
+                  </ul>
+                  </div>
+              </div>
+              <!-- <button onclick="onTimer()">Clickme</button> -->
+
+
+
 
 
         </div>
