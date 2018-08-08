@@ -32,21 +32,7 @@ let gameTime;
 
 database.ref('games').on('value', function(snapshot) {
   // console.log(snapshot.val().inProgress)
-  while(snapshot.val().inProgress === true){
-    if (gameTime > 0) {
-      for(let x =1; x < p1_wordArray.length; x++){
-        let p1_Word = document.createElement('li')
-        p1_Word.innerText = p1_wordArray[x]
-        p1_wordList.appendChild(p1_Word)
-      }
-      for(let y = 1; y < p2_wordArray.length; y++){
-        let p2_Word = document.createElement('li')
-        p2_Word.innerText = p2_wordArray[y]
-        p2_wordList.appendChild(p2_Word)
-      }
 
-    }
-  }
     if(snapshot.val().inProgress === true){
       for(let x = 0; x < gameLetters.length; x++){
         gameLetters[x].innerHTML = snapshot.val().gameLetters[x];
@@ -67,6 +53,17 @@ database.ref('games').on('value', function(snapshot) {
       p2_Score.innerHTML = snapshot.val().playerTwo.score;
       gameTime = snapshot.val().gameTime
       timer.innerHTML = gameTime;
+
+      for(let x =1; x < p1_wordArray.length; x++){
+        let p1_Word = document.createElement('li')
+        p1_Word.innerText = p1_wordArray[x]
+        p1_wordList.appendChild(p1_Word)
+      }
+      for(let y = 1; y < p2_wordArray.length; y++){
+        let p2_Word = document.createElement('li')
+        p2_Word.innerText = p2_wordArray[y]
+        p2_wordList.appendChild(p2_Word)
+      }
 
 
       theTime()
@@ -260,16 +257,16 @@ player_one_Word.onkeydown = function(event) {
         database.ref('games').child("playerOne").child('words').set(p1_wordArray)
         player_one_Word.value = '';
         // clearWordChildren(p1_wordList);
-        // for(let x =1; x < p1_wordArray.length; x++){
-        //   let p1_Word = document.createElement('li')
-        //   p1_Word.innerText = p1_wordArray[x]
-        //   p1_wordList.appendChild(p1_Word)
-        // }
-        // for(let y = 1; y < p2_wordArray.length; y++){
-        //   let p2_Word = document.createElement('li')
-        //   p2_Word.innerText = p2_wordArray[y]
-        //   p2_wordList.appendChild(p2_Word)
-        // }
+        for(let x =1; x < p1_wordArray.length; x++){
+          let p1_Word = document.createElement('li')
+          p1_Word.innerText = p1_wordArray[x]
+          p1_wordList.appendChild(p1_Word)
+        }
+        for(let y = 1; y < p2_wordArray.length; y++){
+          let p2_Word = document.createElement('li')
+          p2_Word.innerText = p2_wordArray[y]
+          p2_wordList.appendChild(p2_Word)
+        }
 
 
         raiseScore(p1_Score, "playerOne");
@@ -291,17 +288,17 @@ player_two_Word.onkeydown = function(event) {
         p2_wordArray.push(word);
         database.ref('games').child("playerTwo").child('words').set(p2_wordArray)
         player_two_Word.value = '';
-        // clearWordChildren(p2_wordList);
-        // for(let y = 1; y < p2_wordArray.length; y++){
-        //   let p2_Word = document.createElement('li')
-        //   p2_Word.innerText = p2_wordArray[y]
-        //   p2_wordList.appendChild(p2_Word)
-        // }
-        // for(let x =1; x < p1_wordArray.length; x++){
-        //   let p1_Word = document.createElement('li')
-        //   p1_Word.innerText = p1_wordArray[x]
-        //   p1_wordList.appendChild(p1_Word)
-        // }
+        clearWordChildren(p2_wordList);
+        for(let y = 1; y < p2_wordArray.length; y++){
+          let p2_Word = document.createElement('li')
+          p2_Word.innerText = p2_wordArray[y]
+          p2_wordList.appendChild(p2_Word)
+        }
+        for(let x =1; x < p1_wordArray.length; x++){
+          let p1_Word = document.createElement('li')
+          p1_Word.innerText = p1_wordArray[x]
+          p1_wordList.appendChild(p1_Word)
+        }
 
 
         raiseScore(p2_Score, "playerTwo");
@@ -330,7 +327,6 @@ function validateWord(word){
     }
   }
 
-  // console.log(wordArr);
   for(let x = 0; x < wordArr.length; x++){
     if(wordObj.hasOwnProperty(wordArr[x])){
       if(wordObj[wordArr[x]] <= 0){
@@ -360,15 +356,5 @@ function raiseScore(playerScore, player){
   let score = parseInt(playerScore.innerHTML)
   score++
   playerScore.innerHTML = score;
-  // console.log(player);
-
   database.ref('games').child(player).update({score: score})
 }
-
-//
-// window.onload = function(){
-//   return database.ref('games').once('inProgress').then(function(snapshot) {
-//   var value = (snapshot.val());
-//   // ...
-//   console.log(value);
-// })};
