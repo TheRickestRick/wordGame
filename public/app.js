@@ -91,6 +91,18 @@ var theTime = (function() {
 function onTimer() {
   database.ref('games').update({gameTime: gameTime--});
 
+
+  for(let x =1; x < p1_wordArray.length; x++){
+    let p1_Word = document.createElement('li')
+    p1_Word.innerText = p1_wordArray[x]
+    p1_wordList.appendChild(p1_Word)
+  }
+  for(let y = 1; y < p2_wordArray.length; y++){
+    let p2_Word = document.createElement('li')
+    p2_Word.innerText = p2_wordArray[y]
+    p2_wordList.appendChild(p2_Word)
+  }
+
   if (gameTime < 0) {
     database.ref('games').update({inProgress: false})
 
@@ -242,16 +254,16 @@ player_one_Word.onkeydown = function(event) {
         database.ref('games').child("playerOne").child('words').set(p1_wordArray)
         player_one_Word.value = '';
         // clearWordChildren(p1_wordList);
-        for(let x =1; x < p1_wordArray.length; x++){
-          let p1_Word = document.createElement('li')
-          p1_Word.innerText = p1_wordArray[x]
-          p1_wordList.appendChild(p1_Word)
-        }
-        for(let y = 1; y < p2_wordArray.length; y++){
-          let p2_Word = document.createElement('li')
-          p2_Word.innerText = p2_wordArray[y]
-          p2_wordList.appendChild(p2_Word)
-        }
+        // for(let x =1; x < p1_wordArray.length; x++){
+        //   let p1_Word = document.createElement('li')
+        //   p1_Word.innerText = p1_wordArray[x]
+        //   p1_wordList.appendChild(p1_Word)
+        // }
+        // for(let y = 1; y < p2_wordArray.length; y++){
+        //   let p2_Word = document.createElement('li')
+        //   p2_Word.innerText = p2_wordArray[y]
+        //   p2_wordList.appendChild(p2_Word)
+        // }
 
 
         raiseScore(p1_Score, "playerOne");
@@ -274,16 +286,16 @@ player_two_Word.onkeydown = function(event) {
         database.ref('games').child("playerTwo").child('words').set(p2_wordArray)
         player_two_Word.value = '';
         // clearWordChildren(p2_wordList);
-        for(let y = 1; y < p2_wordArray.length; y++){
-          let p2_Word = document.createElement('li')
-          p2_Word.innerText = p2_wordArray[y]
-          p2_wordList.appendChild(p2_Word)
-        }
-        for(let x =1; x < p1_wordArray.length; x++){
-          let p1_Word = document.createElement('li')
-          p1_Word.innerText = p1_wordArray[x]
-          p1_wordList.appendChild(p1_Word)
-        }
+        // for(let y = 1; y < p2_wordArray.length; y++){
+        //   let p2_Word = document.createElement('li')
+        //   p2_Word.innerText = p2_wordArray[y]
+        //   p2_wordList.appendChild(p2_Word)
+        // }
+        // for(let x =1; x < p1_wordArray.length; x++){
+        //   let p1_Word = document.createElement('li')
+        //   p1_Word.innerText = p1_wordArray[x]
+        //   p1_wordList.appendChild(p1_Word)
+        // }
 
 
         raiseScore(p2_Score, "playerTwo");
