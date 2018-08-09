@@ -22,13 +22,13 @@ Scoring of your choice.
 
 ## Walkthrough
 
-A player starts a new game, and a selection of nin random letters is displayed on the board.
+A player starts a new game, and a selection of nine random letters is displayed on the board.
 ![alt text](https://github.com/TheRickestRick/wordGame/blob/master/screenShots/Screen%20Shot%202018-08-09%20at%203.57.46%20PM.png)
 
-Players enter words that contain the game letters, and haven't been said already
+Players enter words that contain the game letters, and that haven not already been said.
 ![alt text](https://github.com/TheRickestRick/wordGame/blob/master/screenShots/Screen%20Shot%202018-08-09%20at%203.54.32%20PM.png)
 
-At the end of the time limit the player with the most points wins. It can also be a tie as long as both scores are greater than zero. Players are awarded a point for each word(I know it's not fair because some words should be worth more than others, but without a dictionary it's difficult to validate real words, and their worth.)
+At the end of the time limit the player with the most points wins. It can also be a tie as long as both scores are greater than zero. Players are awarded a point for each word. (I know it's not fair because some words should be worth more than others, but without a dictionary it's difficult to validate real words, and their worth.)
 ![alt text](https://github.com/TheRickestRick/wordGame/blob/master/screenShots/Screen%20Shot%202018-08-09%20at%203.55.55%20PM.png)
 
 
