@@ -1,5 +1,7 @@
 # wordGame
 
+[Link to deployed app!](https://wordgame-15bbf.firebaseapp.com)
+
 This is a word game that I created as part of a code challenge while on the job hunt. It's a simple word game that only uses Javascript, HTML/CSS, and some Firebase. There was a set of rules I was given which needed to be fulfilled in order to meet the requirements for the challenge.
 
 ## The rules.
@@ -46,4 +48,4 @@ I had problems getting the word list to properly update when a new word would be
 
 I also had a problem with the game time function being run every second. Because the game time changes data on the server, the function would be called every second. I solved this by creating a function that would only run one time when a new game is created. This made the time the same between multiple computers, and upon browser refresh.
 
-The code I wrote can be refactored, and made into a more streamlined program. As with anything, it can always be improved. There is redundancy in my functions, and I could have solidified some of my code into a more abstract render function for all of the game data. Since this was my first experience building a multiplayer game, without authentication and a server, I'm pretty happy that I managed to meet my personal goal of getting persistent game data, and met all of the rules for the challenge.
+The code I wrote can be refactored, and made into a more streamlined program. As with anything, it can always be improved. There is redundancy in my functions, and I could have solidified some of my code into a more abstract render function for all of the game data. Since this was my first experience building a multiplayer game, I'm pretty happy that I managed to meet my personal goal of getting persistent game data.
