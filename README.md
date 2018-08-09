@@ -1,6 +1,6 @@
 # wordGame
 
-This is a word game that I created as part of a code challenge while on the job hunt. It's a simple word game that only uses Javascript, HTML/CSS, and some Firebase. There was a set of rules I was given which needed to be fulfilled in order to meet the requirements of the challenge.
+This is a word game that I created as part of a code challenge while on the job hunt. It's a simple word game that only uses Javascript, HTML/CSS, and some Firebase. There was a set of rules I was given which needed to be fulfilled in order to meet the requirements for the challenge.
 
 ## The rules.
 1.Players should be able to start a new game and be given an invitation link to share with other players. The links can be simply copy-and-pasted to other players outside the application.
@@ -25,7 +25,7 @@ Scoring of your choice.
 A player starts a new game, and a selection of nine random letters is displayed on the board.
 ![alt text](https://github.com/TheRickestRick/wordGame/blob/master/screenShots/Screen%20Shot%202018-08-09%20at%203.57.46%20PM.png)
 
-Players enter words that contain the game letters, and that haven not already been said.
+Players enter words that contain the current game letters, and that have not already been said.
 ![alt text](https://github.com/TheRickestRick/wordGame/blob/master/screenShots/Screen%20Shot%202018-08-09%20at%203.54.32%20PM.png)
 
 At the end of the time limit the player with the most points wins. It can also be a tie as long as both scores are greater than zero. Players are awarded a point for each word. (I know it's not fair because some words should be worth more than others, but without a dictionary it's difficult to validate real words, and their worth.)
@@ -36,7 +36,7 @@ At the end of the time limit the player with the most points wins. It can also b
 
 I felt it was going to be a challenge creating a multiplayer game using just vanilla Javascript and no server side code. I have not actually made any multiplayer games before, so this was a completely new challenge for me. I did have experience with Firebase, and I knew I could use firebase to update and read data that people could input from the browser.
 
-I started by creating a game that ran just locally in my own browser. Once I managed to get the general design and layout of my vision, I started diving into the actual functionality. I set up functions to validate the words, and update the score using local variables. I made sure that I got random letters everytime a new game was started that met the requirements for the amount of vowels, consonants, and miscellaneous letters. I created the functions that checked to make sure that letters were not used more than the amount of times they showed up, and that words that had already been entered could not be used again.
+I started by creating a game that ran just locally in my own browser. Once I managed to get the general design and layout of my vision, I started diving into the actual functionality. I set up functions to validate the words, and update the score using local variables. I made sure that I got random letters everytime a new game was started and that these letters met the requirements for the amount of vowels, consonants, and miscellaneous letters required. I created functions that checked to make sure that letters were not used more than the amount of times they showed up, and that words that had already been entered could not be used again.
 
 After I got a local version of my game to work. I started setting up my Firebase database, and creating the functions that would push the local data up to the database. I found out that Firebase has a cool function that will read data when data is changed. This way I was able to create a function that would check the database every time there was a change, and update the local version of the data. This way both players would see real time what was happening, and if they refresh the browser they will not affect the game. I think having persistent data is really important in any kind of application, so I was very happy once I got this to work. 
 
