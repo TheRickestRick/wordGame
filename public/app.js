@@ -9,6 +9,8 @@ var config = {
 };
 firebase.initializeApp(config);
 
+//I created variables for all of the HTML elements I want to manipulate.
+
 var database = firebase.database();
 
 let gameLetters = document.querySelectorAll("td");
@@ -27,18 +29,23 @@ let timer = document.getElementById('mycounter');
 let p1_error = document.getElementById('p1_error');
 let p2_error = document.getElementById('p2_error');
 
+//These local variables are used to store data that will be updated to firebase
 let gameLettersArray = [];
 let p1_wordArray = [];
 let p2_wordArray = [];
 let gameTime;
 
-
+/*
+This database function pulls data when it changes from firebase so each session
+has the most recent data. I wanted the game data to persist through browser refresh.
+It was a challenge, but was fun after I got it to work.
+*/
 database.ref('games').on('value', function(snapshot) {
 
     if(snapshot.val().inProgress === true){
       p1_wordArray = snapshot.val().playerOne.words
       p2_wordArray = snapshot.val().playerTwo.words
-
+      //The Game letters are pulled from the database and used to validate players words
       gameLettersArray = [];
 
       for(let x = 0; x < gameLetters.length; x++){
@@ -47,26 +54,32 @@ database.ref('games').on('value', function(snapshot) {
           gameLettersArray.push(snapshot.val().gameLetters[x])
         }
       }
-
+      //We keep track of the players score and set the value to the HTML elements
       p1_Score.innerHTML = snapshot.val().playerOne.score;
       p2_Score.innerHTML = snapshot.val().playerTwo.score;
       gameTime = snapshot.val().gameTime
       timer.innerHTML = gameTime;
-
+      //This renders the players most up to date word list for the other player to see.
       renderWords()
-
+      //This time keeper function runs once a game is started and keeps track of the time between computers, and upon refresh.
       theTime()
 
     }
     else{
+      //The game scores are evaluated and each player is alerted to the winner.
       if(p1_Score.innerHTML > p2_Score.innerHTML){
         alert('Player One Wins!')
       }else if(p2_Score.innerHTML > p1_Score.innerHTML){
         alert('Player Two Wins!')
+      }else if(p2_Score.innerHTML != 0 && p1_Score.innerHTML != 0 && p1_Score.innerHTML === p2_Score.innerHTML){
+        alert('The Game is a Tie!')
       }
     }
 });
 
+//My time function that will only run once upon start.
+//I had a problem with the timer wanting to run more than once if the browser was refreshed or data was changed.
+//This caused the game time to run down VERY fast. It also wasn't consistent between players.
 var theTime = (function() {
     let executed = false;
     return function() {
@@ -77,6 +90,7 @@ var theTime = (function() {
     };
 })();
 
+//These variables store the valid letters to be used as game letters.
 var vowels = [
   'A',
   'E',
@@ -136,6 +150,7 @@ var consonants = [
   'Z'
 ];
 
+//This function clears the HTML children, and re-writes them whenever a new valid word is added to the players list.
 function renderWords(){
   clearWordChildren(p1_wordList);
   clearWordChildren(p2_wordList);
@@ -151,6 +166,7 @@ function renderWords(){
   }
 }
 
+//The time function that updates firebase every second.
 function onTimer() {
   database.ref('games').update({gameTime: gameTime--});
 
@@ -163,6 +179,7 @@ function onTimer() {
   }
 }
 
+//This function creates a new game object in firebase.
 function createGame(letters, playerOneName, playerTwoName) {
   database.ref('games').set({
     gameLetters: letters,
@@ -173,6 +190,8 @@ function createGame(letters, playerOneName, playerTwoName) {
   });
 }
 
+//locally starts a new game and gets new game letters. These letters are pushed to firebase via the game object.
+//Players word lists are reset, as well as scores.
 function startNewGame(){
   if(gameLettersArray.length >= 9){
     gameLettersArray = [];
@@ -203,6 +222,7 @@ function startNewGame(){
   }
 }
 
+//These functions pick random letters from the letter arrays for use in the game object.
 function newLetter(){
   for(let x = 0; x < letter.length; x++){
     let i = (Math.random() * letters.length) | 0;
@@ -230,6 +250,9 @@ function getLetters (){
   newConsonant();
 }
 
+//These two functions validate, and submit players words via the input upon hitting the return key on the keyboard.
+//They run several validation functions on the input word, and if it passes the word is added to that players word list.
+//There are also feedback boxs that will tell the player if the word they tried to enter is valid or invalid based on the game rules.
 player_one_Word.onkeydown = function(event) {
     if (event.keyCode == 13) {
       let word = player_one_Word.value.toUpperCase()
@@ -272,12 +295,17 @@ player_two_Word.onkeydown = function(event) {
     }
 }
 
+//Clears word children on the HTML list so that the new word list can be applied.
+//I had the problem that multiple of the same word would be added everytime someone typed a new word.
 function clearWordChildren(player){
   while (player.firstChild) {
     player.removeChild(player.firstChild);
   }
 }
 
+//This function makes sure that no letters are used more than once in a word, unless the letter shows up more than one time in the game letters list.
+//I figured it would be fair to use the letter no more than the amount of times it randomly showed up in the game letters array.
+//So I created an object that kept track of the letters, and the amount of times they could be used. If the key value reached zero then you can not use that letter anymore.
 function validateWord(word){
   let wordArr = word.toUpperCase().split('')
   let wordObj = {};
@@ -304,6 +332,7 @@ function validateWord(word){
   return true;
 }
 
+//This function makes sure that the word has not already been said by a player. It checks through the entered words by both players, and if the word was used it returns false.
 function whoSaidItFirst(word){
   if (p2_wordArray.indexOf(word) > -1 || p1_wordArray.indexOf(word) > -1) {
     return false;
@@ -314,6 +343,7 @@ function whoSaidItFirst(word){
   }
 }
 
+//This function will raise the players score in firebase if their entered word passes all of the validation functions.
 function raiseScore(playerScore, player){
   let score = parseInt(playerScore.innerHTML)
   score++
