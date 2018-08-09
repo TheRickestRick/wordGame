@@ -206,7 +206,7 @@ function startNewGame(){
     p1_error.className = "";
     p2_error.innerHTML = "";
     p2_error.className = "";
-
+    location.reload();
   }else{
     getLetters();
     for(let count = 0; count < gameLetters.length; count++){
@@ -219,6 +219,7 @@ function startNewGame(){
     p1_error.className = "";
     p2_error.innerHTML = "";
     p2_error.className = "";
+    location.reload();
   }
 }
 
