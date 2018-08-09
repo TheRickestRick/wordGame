@@ -15,90 +15,81 @@
 
     <body>
 
-        <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
+      <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
 
-            <nav class="uk-navbar uk-margin-large-bottom">
+          <nav class="uk-navbar uk-margin-large-bottom">
 
-                <a href="#offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
-                <div class="uk-navbar-brand uk-navbar-center uk-visible-small">Brand</div>
-            </nav>
+              <a href="#offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
+              <div class="uk-navbar-brand uk-navbar-center uk-visible-small">Brand</div>
+          </nav>
 
-            <div class="uk-flex">
-            <input type="button" name="button" value="New Game" onclick="startNewGame()"/>
-            <div id="mycounter"></div>
+          <div >
+            <input class="uk-align-center" type="button" name="button" value="New Game" onclick="startNewGame()"/>
+          </div>
+          <div >
+            <div id="mycounter" class="uk-width-medium-1-2 uk-container-center uk-text-center">
+            </div>
           </div>
 
-            <table class="uk-table">
-                <caption>Letters</caption>
-                <thead>
-                    <tr>
-                        <!-- <th>Vowel</th>
-                        <th>Vowel</th>
-                        <th>Consonants</th>
-                        <th>Consonants</th> -->
-                    </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                        <td class="vowel"></td>
-                        <td class="vowel"></td>
-                        <td class="consonant"></td>
-                        <td class="consonant"></td>
-                        <td class="letter"></td>
-                        <td class="letter"></td>
-                        <td class="letter"></td>
-                        <td class="letter"></td>
-                        <td class="letter"></td>
-                    </tr>
-                </tfoot>
-            </table>
+          <table class="uk-table">
+              <caption>Letters</caption>
 
+              <tfoot>
+                  <tr>
+                      <td class="vowel"></td>
+                      <td class="vowel"></td>
+                      <td class="consonant"></td>
+                      <td class="consonant"></td>
+                      <td class="letter"></td>
+                      <td class="letter"></td>
+                      <td class="letter"></td>
+                      <td class="letter"></td>
+                      <td class="letter"></td>
+                  </tr>
+              </tfoot>
+          </table>
 
-
-              <div class="uk-align-left uk-overlay uk-overlay-default">
-                  <div>
-                    <p>Player One</p>
-                    <div class="uk-flex">
-                      <div class="">
-                        <p>Score:</p>
-                      </div>
-                      <div class="">
-                        <p id="p1_Score">0</p>
-                      </div>
+            <div class="uk-align-left uk-overlay uk-overlay-default">
+                <div>
+                  <p>Player One</p>
+                  <div class="uk-flex">
+                    <div class="">
+                      <p>Score:</p>
                     </div>
-                    <input id='player1_word_input' type="text" name="Word" value="">
-                  <ul id='p1_wordList'>
-
-                  </ul>
-                  </div>
-              </div>
-              <div class="uk-align-right uk-overlay uk-overlay-default">
-                  <div>
-                    <p>Player Two</p>
-                    <div class="uk-flex">
-                      <div class="">
-                        <p>Score:</p>
-                      </div>
-                      <div class="">
-                        <p id='p2_Score'>0</p>
-                      </div>
+                    <div class="">
+                      <p id="p1_Score">0</p>
                     </div>
-                    <input id='player2_word_input' type="text" name="Word" value="">
-                  <ul id='p2_wordList'>
-
-                  </ul>
                   </div>
-              </div>
-              <!-- <button onclick="onTimer()">Clickme</button> -->
+                  <input id='player1_word_input' type="text" name="Word" value="">
+                  <span id='p1_error' class="error" aria-live="polite"></span>
+                <ul id='p1_wordList'>
 
+                </ul>
+                </div>
+            </div>
 
+            <div class="uk-align-right uk-overlay uk-overlay-default">
+                <div>
+                  <p>Player Two</p>
+                  <div class="uk-flex">
+                    <div class="">
+                      <p>Score:</p>
+                    </div>
+                    <div class="">
+                      <p id='p2_Score'>0</p>
+                    </div>
+                  </div>
+                  <input id='player2_word_input' type="text" name="Word" value="">
+                  <span id='p2_error' class="error" aria-live="polite"></span>
+                <ul id='p2_wordList'>
 
-
+                </ul>
+                </div>
+            </div>
 
         </div>
-
-
     </body>
+
     <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script>
     <script type="text/javascript" src="app.js"></script>
 

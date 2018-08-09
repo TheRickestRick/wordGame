@@ -24,6 +24,8 @@ let consonant = document.getElementsByClassName('consonant');
 let vowel = document.getElementsByClassName('vowel');
 let letter = document.getElementsByClassName('letter');
 let timer = document.getElementById('mycounter');
+let p1_error = document.getElementById('p1_error');
+let p2_error = document.getElementById('p2_error');
 
 let gameLettersArray = [];
 let p1_wordArray = [];
@@ -32,15 +34,13 @@ let gameTime;
 
 
 database.ref('games').on('value', function(snapshot) {
-  // console.log(snapshot.val().inProgress)
 
     if(snapshot.val().inProgress === true){
-
       p1_wordArray = snapshot.val().playerOne.words
       p2_wordArray = snapshot.val().playerTwo.words
 
-
       gameLettersArray = [];
+
       for(let x = 0; x < gameLetters.length; x++){
         gameLetters[x].innerHTML = snapshot.val().gameLetters[x];
         if(gameLettersArray.length !== 9){
@@ -59,7 +59,6 @@ database.ref('games').on('value', function(snapshot) {
 
     }
     else{
-      console.log("game over")
       if(p1_Score.innerHTML > p2_Score.innerHTML){
         alert('Player One Wins!')
       }else if(p2_Score.innerHTML > p1_Score.innerHTML){
@@ -74,7 +73,6 @@ var theTime = (function() {
         if (!executed) {
             executed = true;
             onTimer();
-
         }
     };
 })();
@@ -185,9 +183,12 @@ function startNewGame(){
     createGame(gameLettersArray, "Player One", "Player Two")
     clearWordChildren(p1_wordList)
     clearWordChildren(p2_wordList)
+    p1_error.innerHTML = "";
+    p1_error.className = "";
+    p2_error.innerHTML = "";
+    p2_error.className = "";
 
   }else{
-    console.log(gameLettersArray)
     getLetters();
     for(let count = 0; count < gameLetters.length; count++){
       gameLettersArray.push(gameLetters[count].innerText);
@@ -195,7 +196,10 @@ function startNewGame(){
     createGame(gameLettersArray, "Player One", "Player Two")
     clearWordChildren(p1_wordList)
     clearWordChildren(p2_wordList)
-
+    p1_error.innerHTML = "";
+    p1_error.className = "";
+    p2_error.innerHTML = "";
+    p2_error.className = "";
   }
 }
 
@@ -231,20 +235,18 @@ player_one_Word.onkeydown = function(event) {
       let word = player_one_Word.value.toUpperCase()
       let wordValidated = validateWord(word);
       let wordNotUsedAlready = whoSaidItFirst(word)
-      // console.log(wordValidated);
-      if(wordValidated && wordNotUsedAlready){
-
+      if(wordValidated && wordNotUsedAlready && word.length > 1 && word !== ''){
         p1_wordArray.push(word);
-        // console.log(p1_wordArray)
         database.ref('games').child("playerOne").child('words').set(p1_wordArray)
         player_one_Word.value = '';
-
-
-
+        p1_error.innerHTML = 'Valid Word!'
+        p1_error.className = 'success active';
         raiseScore(p1_Score, "playerOne");
       }else{
-        console.log('Invalid Word');
         player_one_Word.value = '';
+        p1_error.innerHTML = "Invalid Word!";
+        p1_error.className = "error active";
+        event.preventDefault();
       }
     }
 }
@@ -254,19 +256,18 @@ player_two_Word.onkeydown = function(event) {
       let word = player_two_Word.value.toUpperCase()
       let wordValidated = validateWord(word);
       let wordNotUsedAlready = whoSaidItFirst(word)
-      // console.log(wordValidated);
-      if(wordValidated && wordNotUsedAlready){
-
+      if(wordValidated && wordNotUsedAlready && word.length > 1 && word !== ''){
         p2_wordArray.push(word);
         database.ref('games').child("playerTwo").child('words').set(p2_wordArray)
         player_two_Word.value = '';
-
-
-
+        p2_error.innerHTML = 'Valid Word!'
+        p2_error.className = 'success active';
         raiseScore(p2_Score, "playerTwo");
       }else{
-        console.log('Invalid Word');
         player_two_Word.value = '';
+        p2_error.innerHTML = "Invalid Word!";
+        p2_error.className = "error active";
+        event.preventDefault();
       }
     }
 }
