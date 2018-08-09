@@ -1,6 +1,6 @@
 # wordGame
 
-This is a word game that I created as part of a code challenge while on the job hunt. It's a simple word game that only uses Javascript, HTML/CSS, and some Firebase. There was a set of rules I was given which need to fulfill in order to meet the requirements of the challenge.
+This is a word game that I created as part of a code challenge while on the job hunt. It's a simple word game that only uses Javascript, HTML/CSS, and some Firebase. There was a set of rules I was given which needed to be fulfilled in order to meet the requirements of the challenge.
 
 ## The rules.
 1.Players should be able to start a new game and be given an invitation link to share with other players. The links can be simply copy-and-pasted to other players outside the application.
@@ -24,6 +24,13 @@ Scoring of your choice.
 
 A player starts a new game, and a selection of nin random letters is displayed on the board.
 ![alt text](https://github.com/TheRickestRick/wordGame/blob/master/screenShots/Screen%20Shot%202018-08-09%20at%203.57.46%20PM.png)
+
+Players enter words that contain the game letters, and haven't been said already
+![alt text](https://github.com/TheRickestRick/wordGame/blob/master/screenShots/Screen%20Shot%202018-08-09%20at%203.54.32%20PM.png)
+
+At the end of the time limit the player with the most points wins. It can also be a tie as long as both scores are greater than zero. Players are awarded a point for each word(I know it's not fair because some words should be worth more than others, but without a dictionary it's difficult to validate real words, and their worth.)
+![alt text](https://github.com/TheRickestRick/wordGame/blob/master/screenShots/Screen%20Shot%202018-08-09%20at%203.55.55%20PM.png)
+
 
 ## How I took on this challenge.
 
