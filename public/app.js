@@ -30,34 +30,32 @@ let p1_wordArray = [];
 let p2_wordArray = [];
 let gameTime;
 
+
 database.ref('games').on('value', function(snapshot) {
   // console.log(snapshot.val().inProgress)
 
     if(snapshot.val().inProgress === true){
+
+      p1_wordArray = snapshot.val().playerOne.words
+      p2_wordArray = snapshot.val().playerTwo.words
+
+
+      gameLettersArray = [];
       for(let x = 0; x < gameLetters.length; x++){
         gameLetters[x].innerHTML = snapshot.val().gameLetters[x];
         if(gameLettersArray.length !== 9){
           gameLettersArray.push(snapshot.val().gameLetters[x])
         }
       }
-      p1_wordArray = snapshot.val().playerOne.words
-      p2_wordArray = snapshot.val().playerTwo.words
 
-
-
-
-
-
-      // console.log(gameLettersArray)
       p1_Score.innerHTML = snapshot.val().playerOne.score;
       p2_Score.innerHTML = snapshot.val().playerTwo.score;
       gameTime = snapshot.val().gameTime
       timer.innerHTML = gameTime;
 
-
+      renderWords()
 
       theTime()
-
 
     }
     else{
@@ -66,88 +64,27 @@ database.ref('games').on('value', function(snapshot) {
         alert('Player One Wins!')
       }else if(p2_Score.innerHTML > p1_Score.innerHTML){
         alert('Player Two Wins!')
-      }else{
-        alert('Start a New Game.')
       }
     }
 });
 
-
 var theTime = (function() {
-    var executed = false;
+    let executed = false;
     return function() {
         if (!executed) {
             executed = true;
             onTimer();
-            // clearWordChildren();
 
         }
     };
 })();
 
-
-
-
-
-
-function onTimer() {
-  database.ref('games').update({gameTime: gameTime--});
-
-
-
-
-  if (gameTime < 0) {
-    database.ref('games').update({inProgress: false})
-
-  }
-  else {
-    setTimeout(onTimer, 1000);
-  }
-}
-
-
-function createGame(letters, playerOneName, playerTwoName) {
-  database.ref('games').set({
-    gameLetters: letters,
-    gameTime: 60,
-    inProgress: true,
-    playerOne: {name:playerOneName, score:0, words:['word']},
-    playerTwo: {name:playerTwoName, score:0, words:['word']}
-  });
-}
-
-function startNewGame(){
-  if(gameLettersArray.length >= 9){
-    gameLettersArray = [];
-    getLetters();
-    for(let count = 0; count < gameLetters.length; count++){
-      gameLettersArray.push(gameLetters[count].innerText);
-    }
-    createGame(gameLettersArray, "Player One", "Player Two")
-    clearWordChildren(p1_wordList)
-    clearWordChildren(p2_wordList)
-
-  }else{
-    getLetters();
-    for(let count = 0; count < gameLetters.length; count++){
-      gameLettersArray.push(gameLetters[count].innerText);
-    }
-    createGame(gameLettersArray, "Player One", "Player Two")
-    clearWordChildren(p1_wordList)
-    clearWordChildren(p2_wordList)
-  }
-}
-
-
-
-
-
 var vowels = [
-    'A',
-    'E',
-    'I',
-    'O',
-    'U'
+  'A',
+  'E',
+  'I',
+  'O',
+  'U'
 ];
 
 var letters = [
@@ -180,26 +117,87 @@ var letters = [
 ];
 
 var consonants = [
-   'B',
-   'C',
-   'D',
-   'F',
-   'G',
-   'H',
-   'J',
-   'K',
-   'L',
-   'M',
-   'N',
-   'P',
-   'Q',
-   'R',
-   'S',
-   'T',
-   'V',
-   'X',
-   'Z'
+  'B',
+  'C',
+  'D',
+  'F',
+  'G',
+  'H',
+  'J',
+  'K',
+  'L',
+  'M',
+  'N',
+  'P',
+  'Q',
+  'R',
+  'S',
+  'T',
+  'V',
+  'X',
+  'Z'
 ];
+
+function renderWords(){
+  clearWordChildren(p1_wordList);
+  clearWordChildren(p2_wordList);
+  for(let x =1; x < p1_wordArray.length; x++){
+    let p1_Word = document.createElement('li')
+    p1_Word.innerText = p1_wordArray[x]
+    p1_wordList.appendChild(p1_Word)
+  }
+  for(let y = 1; y < p2_wordArray.length; y++){
+    let p2_Word = document.createElement('li')
+    p2_Word.innerText = p2_wordArray[y]
+    p2_wordList.appendChild(p2_Word)
+  }
+}
+
+function onTimer() {
+  database.ref('games').update({gameTime: gameTime--});
+
+  if (gameTime < 0) {
+    database.ref('games').update({inProgress: false})
+
+  }
+  else {
+    setTimeout(onTimer, 1000);
+  }
+}
+
+function createGame(letters, playerOneName, playerTwoName) {
+  database.ref('games').set({
+    gameLetters: letters,
+    gameTime: 60,
+    inProgress: true,
+    playerOne: {name:playerOneName, score:0, words:['word']},
+    playerTwo: {name:playerTwoName, score:0, words:['word']}
+  });
+}
+
+function startNewGame(){
+  if(gameLettersArray.length >= 9){
+    gameLettersArray = [];
+    getLetters();
+    for(let count = 0; count < gameLetters.length; count++){
+      gameLettersArray.push(gameLetters[count].innerText);
+    }
+    createGame(gameLettersArray, "Player One", "Player Two")
+    clearWordChildren(p1_wordList)
+    clearWordChildren(p2_wordList)
+
+  }else{
+    console.log(gameLettersArray)
+    getLetters();
+    for(let count = 0; count < gameLetters.length; count++){
+      gameLettersArray.push(gameLetters[count].innerText);
+    }
+    createGame(gameLettersArray, "Player One", "Player Two")
+    clearWordChildren(p1_wordList)
+    clearWordChildren(p2_wordList)
+
+  }
+}
 
 function newLetter(){
   for(let x = 0; x < letter.length; x++){
@@ -222,17 +220,11 @@ function newConsonant(){
   }
 }
 
-
 function getLetters (){
   newLetter();
   newVowel();
   newConsonant();
 }
-
-
-
-
-
 
 player_one_Word.onkeydown = function(event) {
     if (event.keyCode == 13) {
@@ -246,17 +238,7 @@ player_one_Word.onkeydown = function(event) {
         // console.log(p1_wordArray)
         database.ref('games').child("playerOne").child('words').set(p1_wordArray)
         player_one_Word.value = '';
-        // clearWordChildren(p1_wordList);
-        for(let x =1; x < p1_wordArray.length; x++){
-          let p1_Word = document.createElement('li')
-          p1_Word.innerText = p1_wordArray[x]
-          p1_wordList.appendChild(p1_Word)
-        }
-        for(let y = 1; y < p2_wordArray.length; y++){
-          let p2_Word = document.createElement('li')
-          p2_Word.innerText = p2_wordArray[y]
-          p2_wordList.appendChild(p2_Word)
-        }
+
 
 
         raiseScore(p1_Score, "playerOne");
@@ -278,17 +260,7 @@ player_two_Word.onkeydown = function(event) {
         p2_wordArray.push(word);
         database.ref('games').child("playerTwo").child('words').set(p2_wordArray)
         player_two_Word.value = '';
-        clearWordChildren(p2_wordList);
-        for(let y = 1; y < p2_wordArray.length; y++){
-          let p2_Word = document.createElement('li')
-          p2_Word.innerText = p2_wordArray[y]
-          p2_wordList.appendChild(p2_Word)
-        }
-        for(let x =1; x < p1_wordArray.length; x++){
-          let p1_Word = document.createElement('li')
-          p1_Word.innerText = p1_wordArray[x]
-          p1_wordList.appendChild(p1_Word)
-        }
+
 
 
         raiseScore(p2_Score, "playerTwo");
@@ -327,7 +299,6 @@ function validateWord(word){
     }else{
       return false;
     }
-    // console.log(wordObj);
   }
   return true;
 }
